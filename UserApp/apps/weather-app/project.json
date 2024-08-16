@@ -1,0 +1,87 @@
+{
+  "name": "weather-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/weather-app/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/weather-app",
+        "index": "apps/weather-app/src/index.html",
+        "baseHref": "/",
+        "main": "apps/weather-app/src/main.ts",
+        "tsConfig": "apps/weather-app/tsconfig.app.json",
+        "assets": [
+          "apps/weather-app/src/favicon.ico",
+          "apps/weather-app/src/assets"
+        ],
+        "styles": ["apps/weather-app/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "apps/weather-app/webpack.config.ts"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/weather-app/src/environments/environment.ts",
+              "with": "apps/weather-app/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "webpackConfig": "apps/weather-app/webpack.config.prod.ts"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "weather-app:build",
+        "hmr": true,
+        "port": 4202
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "weather-app:build:development"
+        },
+        "production": {
+          "buildTarget": "weather-app:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "buildTarget": "weather-app:build",
+        "watch": false,
+        "port": 4202
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "weather-app:build:development"
+        },
+        "production": {
+          "buildTarget": "weather-app:build:production"
+        }
+      }
+    }
+  }
+}
