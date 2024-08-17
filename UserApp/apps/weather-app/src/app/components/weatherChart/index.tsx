@@ -24,7 +24,7 @@ const StockComponent: React.FC = () => {
             params: {
               function: 'GLOBAL_QUOTE',
               symbol,
-              apikey: 'XrL58oqZlUCvn8003wz7Jp3pzSqu59AR', // Replace with your API Key
+              // apikey: 'sdkjsdjcbnkh', // Replace with your API Key
             }
           })
         );
