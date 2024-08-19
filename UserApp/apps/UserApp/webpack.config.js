@@ -16,6 +16,7 @@ module.exports = {
       remotes: {
         remoteAppUserList: 'user-list@http://localhost:4201/remote-entry.js',
         remoteAppWeather: 'weather-app@http://localhost:4202/remote-entry.js',
+        remoteAngularApp: 'myAngularApp@http://localhost:4203/remote-entry.js',
       },
       shared: {
         ...deps,
